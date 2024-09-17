@@ -35,6 +35,9 @@ public class ClassSchedule {
     public String convertCsvToJsonString(List<String[]> csv) {
         // CSV Iterator
         Iterator<String[]> csvIterator = csv.iterator();
+        
+        // Final JSON object to store all course data
+        JsonObject classListMap = new JsonObject();
 
         if (csvIterator.hasNext()) {
             // Headers
@@ -116,17 +119,14 @@ public class ClassSchedule {
             }
 
 
-            // Final JSON object to store all course data
-            JsonObject classListMap = new JsonObject();
+            
             classListMap.put("scheduletype", typeToScheduleMap);
             classListMap.put("subject", idToScheduleMap);
             classListMap.put("course", courseNameToDetailsMap);
             classListMap.put("section", sectionArray);
-
-            // Serialize JSON object to string
-            return Jsoner.serialize(classListMap);
         }
-        return "{}"; // Return empty JSON if no data is present
+        // Serialize JSON object to string
+        return Jsoner.serialize(classListMap);
     }
     
     public String convertJsonToCsvString(JsonObject json) {
